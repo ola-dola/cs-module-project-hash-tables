@@ -62,9 +62,11 @@ class HashTable:
         Implement this, and/or FNV-1.
         """
         # Your code here
+        key_to_byte = key.encode()
         hash = 5381
-        for char in key:
-            hash = (hash * 33) + char.encode()
+        
+        for char in key_to_byte:
+            hash = (hash * 33) + char
         return hash
 
     def hash_index(self, key):
@@ -84,6 +86,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        index = self.hash_index(key)
+        self.storage[index] = value
 
     def delete(self, key):
         """
@@ -94,6 +98,12 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        index = self.hash_index(key)
+
+        if self.storage[index] is None:
+            print("Nothing here mate!")
+        else:
+            self.storage[index] = None
 
     def get(self, key):
         """
@@ -104,6 +114,9 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        index = self.hash_index(key)
+        print(self.storage[index])
+        return self.storage[index]
 
     def resize(self, new_capacity):
         """
